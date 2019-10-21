@@ -1,4 +1,5 @@
 CREATE DATABASE acdb;
+USE acdb;
 
 CREATE TABLE users(
     email VARCHAR(30) PRIMARY KEY,    
