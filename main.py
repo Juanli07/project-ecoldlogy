@@ -1,10 +1,10 @@
-from db import accessToDB
+
 import motionSensor
 
 instance = motionSensor.motionSensor(2)
-xd = 0 
-while(xd != 0):
+x = 0;
+while True:
     xd = instance.returnResults()
-    print(xd)
+    print("{}] {} ".format(x+1, xd))
 
 
