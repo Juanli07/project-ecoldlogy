@@ -3,29 +3,39 @@ import RPi.GPIO as GPIO
 import motionSensor
 import dht11
 import time
+import led
+from datetime import date, datetime
 
 GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
 GPIO.cleanup
-# instance = motionSensor.motionSensor(2)
-# x = 0;
-# while True:
-#     x+=1
-#     xd = instance.returnResults()
-#     print("{}] {} ".format(x, xd))
+try:
+    ledon = led.led(12, 10)
+    ledon.onLed()
+    # instance = motionSensor.motionSensor(11)
+    # x = 0;
+    # while True:
+    #     x+=1
+    #     xd = instance.returnResults()
+    #     print("{}] {} ".format(x, xd))
 
-instance = RCWL.rcwl(12)
+    #instance = RCWL.rcwl(13)
 
-while True:
-     read = instance.returnResults
-     print(read)
+    #while True:
+    #     read = instance.returnResults
+    #     print(read)
 
-instance = dht11.DHT11(pin = 7)
+    instance = dht11.DHT11(pin = 7)
 
-while True:
-    result  = instance.read()
-    if result.is_valid():
-        print("Temperatura : {}, Humedad : {}".format(result.temperature, result.humidity))
-        time.sleep(2)
+    while True:
+        result  = instance.read()
+        if result.is_valid():
+            print("Temperatura : {}, Humedad : {}, {}".format(result.temperature, result.humidity, datetime.now()))
+            time.sleep(2)
 
-GPIO.cleanup()
+    GPIO.cleanup()
+except KeyboardInterrupt:
+    print('\nSaliendo...')
+    GPIO.cleanup()
+finally:
+    GPIO.cleanup()

@@ -17,4 +17,3 @@ class rcwl:
             r = 0
             return r
 
-
